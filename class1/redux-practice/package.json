@@ -1,0 +1,14 @@
+{
+  "name": "redux-practice",
+  "version": "1.0.0",
+  "description": "aprendiendo redux",
+  "main": "app.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "author": "Cesar Casas <cesarcasas@bsdsolutions.com.ar> (https://ar.linkedin.com/in/cesarcasas)",
+  "license": "ISC",
+  "dependencies": {
+    "redux": "^3.6.0"
+  }
+}
