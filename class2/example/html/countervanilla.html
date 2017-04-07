@@ -17,7 +17,7 @@
     <script>
     function counter(state, action) {
         if (typeof state === 'undefined') {
-            return 0
+            return 0;
         }
 
         switch (action.type) {
@@ -32,7 +32,7 @@
 
     var store = Redux.createStore(counter);
     var valueEl = document.getElementById('value');
-    
+
     function render() {
         valueEl.innerHTML = store.getState().toString();
     }
