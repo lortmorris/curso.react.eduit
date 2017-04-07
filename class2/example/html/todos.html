@@ -6,20 +6,32 @@
 </head>
 <body>
     <div>
-        <ul>
-            <li>Aprender Redux</li>
-            <li>Aprender Webpack</li>
-            <li>Aprender Babel</li>
-        </ul>
+        <form id="formAddTodo">
+            <input type="text" id= "titleTask" />
+            <input type='submit' />
+        </form>
+        <ul id="todosHTML" />
     </div>
     <script>
+    let counter = 0 ;
     const myReducer = (state=[], action)=>{
         switch(action.type){
+            case 'TOGGLE_TODO':
+            return state.map( todo=>{
+                if(todo.id=== action.id) todo.completed  = !todo.completed;
+                return todo;
+            })
+            break;
+            case 'REMOVE_TODO':
+            return state.filter( el => el.id !== action.id );
+            break;
+
             case 'ADD_TODO':
-                return [ ...state, {
-                    title: action.title,
-                    completed: false
-                }];
+            return [ ...state, {
+                title: action.title,
+                completed: false,
+                id: counter++
+            }];
             break;
             default:
             return state;
@@ -29,7 +41,32 @@
 
     const store = Redux.createStore(myReducer);
 
+    const actions = {
+        'ADD':{
+            type: 'ADD_TODO',
+            completed: false,
+            title: 'NO TITLE'
+        },
+        'REMOVE': {
+            type: 'REMOVE_TODO'
+        },
+        'TOGGLE':{
+            type:'TOGGLE_TODO'
+        }
+    };
+
+    document.getElementById('formAddTodo').addEventListener('submit', (event)=>{
+        event.preventDefault();
+        store.dispatch( Object.assign({}, actions.ADD, {title: document.getElementById('titleTask').value}));
+    })
     const render = ()=>{
+        document.getElementById('todosHTML').innerHTML = '';
+        store.getState().map(todo=>{
+            let li = document.createElement('li');
+            li.innerHTML = `<span style="color: ${todo.completed ? 'blue': 'red'}">${todo.title}</span>`;
+            li.addEventListener('click', ()=> store.dispatch(Object.assign({}, actions.TOGGLE, {id: todo.id}) ));
+            document.getElementById('todosHTML').appendChild(li);
+        })
         console.log(store.getState());
     }
 
