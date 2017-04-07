@@ -1,7 +1,7 @@
 import React from 'react';
-import {render} from 'react-dom';
+import { render } from 'react-dom';
 import { createStore } from 'redux';
-import {todo} from './reducers/index.jsx';
+//import { todo } from './reducers/index.jsx';
 
 class Title extends React.Component {
     render(){
