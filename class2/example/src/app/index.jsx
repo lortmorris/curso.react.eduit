@@ -2,13 +2,11 @@ import React from 'react';
 import { render } from 'react-dom';
 import SubTitle from './components/SubTitle.jsx';
 
-class Title extends React.Component{
-    render(){
-        return (
-            <h1 style={{ color: this.props.color }}>{this.props.title}</h1>
-        )
-    }
-}
+
+
+const Title = ({color, title})=> (
+    <h1 style={{ color: color }}>{title}</h1>
+)
 
 
 class Todos extends React.Component{
