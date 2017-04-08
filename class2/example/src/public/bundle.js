@@ -101,14 +101,17 @@
 	    _createClass(Todos, [{
 	        key: 'render',
 	        value: function render() {
+	            console.log(this.props);
 	            return _react2.default.createElement(
 	                'ul',
 	                { className: 'todos-box' },
-	                _react2.default.createElement(
-	                    'li',
-	                    null,
-	                    'Aprender React'
-	                )
+	                this.props.todos.map(function (todo) {
+	                    return _react2.default.createElement(
+	                        'li',
+	                        null,
+	                        todo.title
+	                    );
+	                })
 	            );
 	        }
 	    }]);
@@ -131,14 +134,17 @@
 	            return _react2.default.createElement(
 	                'div',
 	                null,
-	                _react2.default.createElement(_SubTitle2.default, null),
-	                _react2.default.createElement(Todos, null)
+	                _react2.default.createElement(_SubTitle2.default, { subtitle: this.props.title }),
+	                _react2.default.createElement(Todos, { todos: this.props.todos })
 	            );
 	        }
 	    }]);
 
 	    return BlockTodos;
 	}(_react2.default.Component);
+
+	var todos1 = [{ title: 'Aprender React' }];
+	var todos2 = [{ title: 'Aprender Redux' }];
 
 	var App = function (_React$Component4) {
 	    _inherits(App, _React$Component4);
@@ -156,8 +162,8 @@
 	                'div',
 	                null,
 	                _react2.default.createElement(Title, { title: 'hola a todos los pibes', color: 'red' }),
-	                _react2.default.createElement(BlockTodos, null),
-	                _react2.default.createElement(BlockTodos, null)
+	                _react2.default.createElement(BlockTodos, { title: 'Todos 1', todos: todos1 }),
+	                _react2.default.createElement(BlockTodos, { title: 'Todos 2', todos: todos2 })
 	            );
 	        }
 	    }]);
@@ -21623,7 +21629,7 @@
 	            return _react2.default.createElement(
 	                'h2',
 	                null,
-	                'Todos 1'
+	                this.props.subtitle
 	            );
 	        }
 	    }]);

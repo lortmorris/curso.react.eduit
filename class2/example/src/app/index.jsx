@@ -3,7 +3,7 @@ import { render } from 'react-dom';
 import SubTitle from './components/SubTitle.jsx';
 
 class Title extends React.Component{
-    render(){        
+    render(){
         return (
             <h1 style={{ color: this.props.color }}>{this.props.title}</h1>
         )
@@ -13,9 +13,12 @@ class Title extends React.Component{
 
 class Todos extends React.Component{
     render(){
+        console.log(this.props);
         return (
             <ul className="todos-box">
-                <li>Aprender React</li>
+                {this.props.todos.map(todo=>(
+                    <li>{todo.title}</li>
+                ))}
             </ul>
         )
     }
@@ -25,8 +28,8 @@ class BlockTodos extends React.Component{
     render(){
         return (
             <div>
-            <SubTitle />
-            <Todos />
+            <SubTitle subtitle={this.props.title}  />
+            <Todos todos={this.props.todos} />
             </div>
         )
     }
@@ -34,13 +37,16 @@ class BlockTodos extends React.Component{
 
 
 
+const todos1 = [{title: 'Aprender React'}];
+const todos2 = [{title: 'Aprender Redux'}];
+
 class App extends React.Component {
     render() {
         return (
             <div>
                 <Title title="hola a todos los pibes" color="red" />
-                <BlockTodos />
-                <BlockTodos />
+                <BlockTodos title="Todos 1" todos={todos1} />
+                <BlockTodos title="Todos 2" todos={todos2} />
             </div>
         );
     }

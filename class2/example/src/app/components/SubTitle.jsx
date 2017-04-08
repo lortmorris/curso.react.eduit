@@ -1,9 +1,9 @@
 import React from 'react';
 
 class SubTitle extends React.Component{
-    render(){
+    render(){        
         return (
-            <h2>Todos 1</h2>
+            <h2>{this.props.subtitle}</h2>
         )
     }
 }
