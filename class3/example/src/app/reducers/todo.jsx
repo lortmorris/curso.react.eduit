@@ -43,6 +43,6 @@ function generateTodos(initState=[]){
   }
 }
 
-module.exports ={
-  factoryTodos: (initState)=> createStore(generateTodos(initState))
-}
+module.exports = {
+  factoryTodos: initState => createStore(generateTodos(initState))
+};
