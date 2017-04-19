@@ -1,5 +1,6 @@
 import React from 'react';
 
+let id= 0 ;
 class AddTodoList extends React.Component{
   constructor(props){
     super(props);
@@ -19,7 +20,7 @@ class AddTodoList extends React.Component{
 
   handlerOnSubmit(event){
     event.preventDefault();
-    this.props.store.dispatch({type:'ADD_TODOS_LIST', title: this.state.todoName});
+    this.props.store.dispatch({type:'ADD_TODO', title: this.state.todoName, id: id++});
     this.setState({
       todoName: ''
     });

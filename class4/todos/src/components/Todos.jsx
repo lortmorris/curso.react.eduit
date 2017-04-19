@@ -1,5 +1,6 @@
 import React from 'react';
 import Todo from './todo.jsx';
+import AddTodo from './AddTodo/index.jsx';
 
 const Todos = ({todos, title})=> (
   <ul>

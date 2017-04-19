@@ -6,7 +6,7 @@ import AddTodoList from '../components/AddTodoList/index.jsx';
 const Layout = ({store, title})=>(
   <div>
     <Title value={title} />
-    <AddTodoList />
+    <AddTodoList store={store} />
     {store.getState().map(todos => (
       <Todos key={todos.todosId} {...todos} />
     ))}
