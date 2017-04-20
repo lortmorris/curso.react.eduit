@@ -40,6 +40,7 @@ const todos = (state=[], action)=>{
 }
 
 const todosList = (state=[], action)=>{
+  console.log('State changed: ', state, action);
   switch(action.type){
     case 'ADD_TODOS_LIST':
       return [...state, todos(null, action)];
@@ -54,6 +55,8 @@ const todosList = (state=[], action)=>{
 
       });
     break;
+    return state;
+    default:
     return state;
   }
 }

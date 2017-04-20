@@ -10,3 +10,9 @@ export const addTodo = (title, listId)=> ({
   todosId: listId,
   owner: 1
 });
+
+
+export const removeTodoList = (id)=>({
+    type: 'REMOVE_TODO_LIST',
+    todosId: id
+})

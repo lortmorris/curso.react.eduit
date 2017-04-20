@@ -8,7 +8,6 @@ const Layout = ({store, title})=>{
 
   const handlerSubmit = (title) => store.dispatch(addTodoList(title));
 
-
   return (
     <div>
       <Title value={title} />
