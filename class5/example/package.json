@@ -4,7 +4,8 @@
   "description": "React Example, class 3, course of react.",
   "main": "app.js",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "start": "webpack-dev-server --devtool eval --color --progress --content-base src/public"
   },
   "author": "Cesar Casas <cesarcasas@bsdsolutions.com.ar> (https://ar.linkedin.com/in/cesarcasas)",
   "license": "ISC",

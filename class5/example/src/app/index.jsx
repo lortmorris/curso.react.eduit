@@ -9,6 +9,7 @@ const request = new Request();
 let todoStore = null;
 let id =0 ;
 
+
 function todo(state={}, action){
   switch (action.type) {
     case 'ADD_TODO':
@@ -165,8 +166,6 @@ class App extends React.Component {
     );
   }
 }
-
-
 
 
 request.get(APIHost+'/todo')

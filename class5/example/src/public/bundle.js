@@ -75,6 +75,12 @@
 	var todoStore = null;
 	var id = 0;
 
+	fetch('/mock/countries.json').then(function (respose) {
+	  return console.log(response);
+	}).catch(function (err) {
+	  return console.log(err);
+	});
+
 	function todo() {
 	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 	  var action = arguments[1];
