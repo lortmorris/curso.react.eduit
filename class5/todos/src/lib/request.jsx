@@ -8,11 +8,16 @@ class Request{
   	.then(response=> {
 			return response.json()
     }).then( json=>{
-			console.log('json', json);
 			this.store.dispatch({
         type: 'REQUEST_SUCCESS',
         data: json
       })
+		})
+		.catch(err=>{
+			this.store.dispatch({
+				type: 'REQUEST_ERROR',
+				data: err
+			})
 		})
 	}
 

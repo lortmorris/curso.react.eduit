@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 
 
-const Title = ({value, id}) =>(
+const Title = ({value}) =>(
   <h1>{value}</h1>
 );
 
-
+Title.propTypes = {
+  value: PropTypes.string.isRequired,
+}
 export default Title;
