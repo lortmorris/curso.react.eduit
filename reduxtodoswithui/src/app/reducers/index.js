@@ -8,11 +8,11 @@ let id = 0;
 
 const todo = (state ={}, action) => {
     switch(action.type){
-      case 'ADD_TODO':
+      case 'PUT_TODOS_SUCCESS':
       return {
-        id: id++,
-        added: action.added,
-        title: action.title,
+        _id: action.payload._id,
+        added: action.payload.added,
+        title: action.payload.title,
         completed: false,
       };
 
@@ -29,8 +29,8 @@ const todo = (state ={}, action) => {
 
 const todosList = (state = {}, action) => {
   switch(action.type){
-    case 'ADD_TODO':
-      if (state._id === action.listId) {
+    case 'PUT_TODOS_SUCCESS':
+      if (state._id === action.payload.listId) {
         return Object.assign({}, state, {
           todos: [...state.todos, todo({}, action)]
         });
@@ -52,11 +52,11 @@ const todosList = (state = {}, action) => {
 
     case 'PUT_TODOLIST_SUCCESS':
     return {
-      name: action.name,
-      added: action.added,
+      name: action.payload.name,
+      added: action.payload.added,
       completed: false,
       todos: [],
-      _id: action._id,
+      _id: action.payload._id,
     }
     case 'REMOVE_TODO_LIST':
       return state._id !== action._id;
@@ -77,7 +77,7 @@ const reducer = (state = initialState, action) => {
   switch(action.type){
     case 'PUT_TODOLIST_SUCCESS':
       return Object.assign({}, state, {
-        todosList: [...state.todosList, todosList({}, action.payload)]
+        todosList: [...state.todosList, todosList({}, action)]
       });
     case 'FETCH_TODOSLIST_SUCCESS':
       return { todosList: action.payload };
@@ -91,7 +91,8 @@ const reducer = (state = initialState, action) => {
       return Object.assign({}, state, {
         todosList: state.todosList.map(tl => todosList(tl, action)),
       });
-    case 'ADD_TODO':
+    case 'PUT_TODOS_SUCCESS':
+    console.info('CASE 1 ok');
       return Object.assign(state, {
         todosList: state.todosList.map(tl => todosList(tl, action))
       });

@@ -25,15 +25,13 @@ class FormAddNewEntity extends React.Component {
     if (this.state.name.trim() === '') return;
 
     if (this.listId === -1){
-    //  this.dispatch(createTodoList(this.state.name));
       put(this.dispatch)('todoslist', {
         name: this.state.name,
         todos: [],
         completed: false,
       });
     }else{
-      this.dispatch(addTodo(this.listId, this.state.name));
-      put(this.dispatch)('todo', { listId: this.listId });
+      put(this.dispatch)('todos', addTodo(this.listId, this.state.name));
     }
 
     this.setState({ name: '' });

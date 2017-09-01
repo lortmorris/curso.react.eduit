@@ -10,9 +10,9 @@ const TodosList = ({ list, dispatch })=> {
     <label > {'All'}
       <input type="checkbox"  />
     </label>
-    <FormAddNewEntity dispatch={dispatch} listId={list.id} />
+    <FormAddNewEntity dispatch={dispatch} listId={list._id} />
     <ul>
-      {list.todos.map(todo => <TodoItem key={`todo-${todo.id}`} listId={list.id} dispatch={dispatch} todo={todo}/> )}
+      {list.todos.map(todo => <TodoItem key={`todo-${todo.id}`} listId={list._id} dispatch={dispatch} todo={todo}/> )}
     </ul>
     <RemoveTodosList dispatch={dispatch} listId={list.id} itemId={-1} />
   </div>
