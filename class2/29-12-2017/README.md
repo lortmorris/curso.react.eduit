@@ -30,7 +30,7 @@
 - ToggleTodosList (integer: listId)
 - EditName (integer: listId, name)
 
-- AddItem (string: name)
+- AddItem (integer: listId, string: name)
 - ToggleItem (integer: listId, integer: itemId)
 - RemoveItem (integer: listId, integer: itemId)
 - EditItemName (integer: listId, integer: itemId, string: name)

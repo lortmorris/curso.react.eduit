@@ -699,32 +699,20 @@ function compose() {
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_redux__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__actions__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__reducers__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__actions__ = __webpack_require__(25);
 
 
 
 
-const reducer = (state = 0, action = {}) => {
-  switch (action.type) {
-    case 'INCREMENT':
-      return state + 1;
-    case 'DECREMENT':
-      return state - 1;
-
-    default:
-      return state;
-  }
-};
-
-const store = Object(__WEBPACK_IMPORTED_MODULE_0_redux__["a" /* createStore */])(reducer);
+const store = Object(__WEBPACK_IMPORTED_MODULE_0_redux__["a" /* createStore */])(__WEBPACK_IMPORTED_MODULE_1__reducers__["a" /* default */]);
 
 store.subscribe(() => {
   console.info('changed: ', store.getState());
 });
 
-store.dispatch({ type: 'INCREMENT' });
-store.dispatch({ type: 'DECREMENT' });
-store.dispatch({ type: 'INCREMENT' });
+store.dispatch(Object(__WEBPACK_IMPORTED_MODULE_2__actions__["a" /* AddNewTodosList */])('supermarket'));
+store.dispatch(Object(__WEBPACK_IMPORTED_MODULE_2__actions__["b" /* RemoveTodosList */])(store.getState()[0].listId));
 
 /***/ }),
 /* 8 */
@@ -1340,13 +1328,113 @@ function applyMiddleware() {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+const getId = () => `${new Date().getTime()}-${Math.floor(Math.random() * 1000)}`;
 
+const todosList = (state = { name: '', todos: [] }, action) => {
+  console.info('todosList: ', action);
+  switch (action.type) {
+    case 'ADD_NEW_TODOS_LIST':
+      return {
+        name: action.name,
+        todos: [],
+        completed: false,
+        listId: getId()
+      };
+      break;
+    default:
+      return state;
+      break;
+  }
+};
+
+const reducer = (state = [], action) => {
+  console.info(action);
+  switch (action.type) {
+    case 'ADD_NEW_TODOS_LIST':
+      return [...state, todosList(undefined, action)];
+      break;
+    case 'REMOVE_TODOS_LIST':
+      return state.filter(tl => tl.listId !== action.listId);
+      break;
+    default:
+      return state;
+      break;
+  }
+};
+
+/* harmony default export */ __webpack_exports__["a"] = (reducer);
+
+/***/ }),
+/* 25 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* TODOS_LIST Actions */
 const AddNewTodosList = name => ({
-  type: ADD_NEW_TODOS_LIST,
+  type: 'ADD_NEW_TODOS_LIST',
   name
 });
-/* unused harmony export AddNewTodosList */
+/* harmony export (immutable) */ __webpack_exports__["a"] = AddNewTodosList;
 
+
+const RemoveTodosList = listId => ({
+  type: 'REMOVE_TODOS_LIST',
+  listId
+});
+/* harmony export (immutable) */ __webpack_exports__["b"] = RemoveTodosList;
+
+
+const ToggleTodosList = listId => ({
+  type: 'TOGGLE_TODOS_LIST',
+  listId
+});
+/* unused harmony export ToggleTodosList */
+
+
+const EditName = (listId, name) => ({
+  type: 'EDIT_TODOS_LIST_NAME',
+  listId,
+  name
+});
+/* unused harmony export EditName */
+
+
+/* ITEMS Actions */
+
+const AddItem = (listId, name) => ({
+  type: 'ADD_ITEM',
+  listId,
+  name
+});
+/* unused harmony export AddItem */
+
+
+const ToggleItem = (listId, itemId) => ({
+  type: 'TOGGLE_ITEM',
+  listId,
+  itemId
+});
+/* unused harmony export ToggleItem */
+
+
+const RemoveItem = (listId, itemId) => ({
+  type: 'REMOVE_ITEM',
+  listId,
+  itemId
+});
+/* unused harmony export RemoveItem */
+
+
+const EditItemName = (listId, itemId, name) => ({
+  type: 'EDIT_ITEM_NAME',
+  listId,
+  itemId,
+  name
+});
+/* unused harmony export EditItemName */
+
+
+/* unused harmony default export */ var _unused_webpack_default_export = (null);
 
 /***/ })
 /******/ ]);
