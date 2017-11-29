@@ -14,7 +14,7 @@ const config = {
       {
         test : /\.js*?/,
         include : APP_DIR,
-        loader : 'babel'
+        loader : 'babel-loader'
       }
     ]
   }

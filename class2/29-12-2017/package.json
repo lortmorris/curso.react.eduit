@@ -4,11 +4,15 @@
   "description": "Todos App",
   "main": "app.js",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "start": "node ./node_modules/webpack/bin/webpack.js --watch --color --progress "
   },
   "author": "Cesar Casas <cesarcasas@bsdsolutions.com.ar> (https://ar.linkedin.com/in/cesarcasas)",
   "license": "ISC",
   "dependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "redux": "^3.7.2",
     "webpack": "^3.8.1"
   }
 }
