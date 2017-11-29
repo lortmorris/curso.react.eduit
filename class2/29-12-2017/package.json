@@ -1,0 +1,14 @@
+{
+  "name": "29-12-2017",
+  "version": "1.0.0",
+  "description": "Todos App",
+  "main": "app.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "author": "Cesar Casas <cesarcasas@bsdsolutions.com.ar> (https://ar.linkedin.com/in/cesarcasas)",
+  "license": "ISC",
+  "dependencies": {
+    "webpack": "^3.8.1"
+  }
+}
