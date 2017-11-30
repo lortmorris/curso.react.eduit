@@ -14,7 +14,7 @@ export const ToggleTodosList = listId => ({
   listId,
 });
 
-export const EditName = (listId, name) => ({
+export const EditTodoListName = (listId, name) => ({
   type: 'EDIT_TODOS_LIST_NAME',
   listId,
   name,

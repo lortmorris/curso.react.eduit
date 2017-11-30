@@ -694,42 +694,50 @@ function compose() {
 
 /***/ }),
 /* 7 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_redux__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__reducers__ = __webpack_require__(24);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__actions__ = __webpack_require__(25);
 
 
+var _redux = __webpack_require__(8);
 
+var _reducers = __webpack_require__(24);
 
-const store = Object(__WEBPACK_IMPORTED_MODULE_0_redux__["a" /* createStore */])(__WEBPACK_IMPORTED_MODULE_1__reducers__["a" /* default */]);
+var _reducers2 = _interopRequireDefault(_reducers);
 
-store.subscribe(() => {
+var _actions = __webpack_require__(26);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var store = (0, _redux.createStore)(_reducers2.default);
+
+store.subscribe(function () {
   console.info('changed: ', store.getState());
 });
 
-store.dispatch(Object(__WEBPACK_IMPORTED_MODULE_2__actions__["a" /* AddNewTodosList */])('supermarket'));
-store.dispatch(Object(__WEBPACK_IMPORTED_MODULE_2__actions__["b" /* RemoveTodosList */])(store.getState()[0].listId));
+store.dispatch((0, _actions.AddNewTodosList)('supermarket'));
+store.dispatch((0, _actions.ToggleTodosList)(store.getState()[0].listId));
+store.dispatch((0, _actions.EditTodoListName)(store.getState()[0].listId, 'Coto'));
+store.dispatch((0, _actions.AddItem)(store.getState()[0].listId, 'Comprar red bull'));
+store.dispatch((0, _actions.RemoveTodosList)(store.getState()[0].listId));
 
 /***/ }),
 /* 8 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* WEBPACK VAR INJECTION */(function(process) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__createStore__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__combineReducers__ = __webpack_require__(21);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__bindActionCreators__ = __webpack_require__(22);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__applyMiddleware__ = __webpack_require__(23);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__compose__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__utils_warning__ = __webpack_require__(5);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__createStore__["b"]; });
-/* unused harmony reexport combineReducers */
-/* unused harmony reexport bindActionCreators */
-/* unused harmony reexport applyMiddleware */
-/* unused harmony reexport compose */
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "createStore", function() { return __WEBPACK_IMPORTED_MODULE_0__createStore__["b"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "combineReducers", function() { return __WEBPACK_IMPORTED_MODULE_1__combineReducers__["a"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "bindActionCreators", function() { return __WEBPACK_IMPORTED_MODULE_2__bindActionCreators__["a"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "applyMiddleware", function() { return __WEBPACK_IMPORTED_MODULE_3__applyMiddleware__["a"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "compose", function() { return __WEBPACK_IMPORTED_MODULE_4__compose__["a"]; });
 
 
 
@@ -1077,7 +1085,7 @@ function symbolObservablePonyfill(root) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/* unused harmony export default */
+/* WEBPACK VAR INJECTION */(function(process) {/* harmony export (immutable) */ __webpack_exports__["a"] = combineReducers;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__createStore__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash_es_isPlainObject__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_warning__ = __webpack_require__(5);
@@ -1218,7 +1226,7 @@ function combineReducers(reducers) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* unused harmony export default */
+/* harmony export (immutable) */ __webpack_exports__["a"] = bindActionCreators;
 function bindActionCreator(actionCreator, dispatch) {
   return function () {
     return dispatch(actionCreator.apply(undefined, arguments));
@@ -1272,7 +1280,7 @@ function bindActionCreators(actionCreators, dispatch) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* unused harmony export default */
+/* harmony export (immutable) */ __webpack_exports__["a"] = applyMiddleware;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__compose__ = __webpack_require__(6);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
@@ -1325,20 +1333,240 @@ function applyMiddleware() {
 
 /***/ }),
 /* 24 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-const getId = () => `${new Date().getTime()}-${Math.floor(Math.random() * 1000)}`;
 
-const todosList = (state = { name: '', todos: [] }, action) => {
-  console.info('todosList: ', action);
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _todosList = __webpack_require__(25);
+
+var _todosList2 = _interopRequireDefault(_todosList);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
+var reducer = function reducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+  var action = arguments[1];
+
+  switch (action.type) {
+    case 'ADD_NEW_TODOS_LIST':
+      return [].concat(_toConsumableArray(state), [(0, _todosList2.default)(undefined, action)]);
+      break;
+    case 'REMOVE_TODOS_LIST':
+      return state.filter(function (tl) {
+        return !(0, _todosList2.default)(tl, action);
+      });
+      break;
+    case 'TOGGLE_TODOS_LIST':
+      return state.map(function (tl) {
+        return (0, _todosList2.default)(tl, action);
+      });
+      break;
+    case 'EDIT_TODOS_LIST_NAME':
+      return state.map(function (tl) {
+        return (0, _todosList2.default)(tl, action);
+      });
+      break;
+    case 'ADD_ITEM':
+      return state.map(function (tl) {
+        return (0, _todosList2.default)(tl, action);
+      });
+      break;
+    default:
+      return state;
+      break;
+  }
+};
+
+exports.default = reducer;
+
+/***/ }),
+/* 25 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _utils = __webpack_require__(27);
+
+var _todoitems = __webpack_require__(28);
+
+var _todoitems2 = _interopRequireDefault(_todoitems);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
+var todosList = function todosList() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : { name: '', todos: [] };
+  var action = arguments[1];
+
   switch (action.type) {
     case 'ADD_NEW_TODOS_LIST':
       return {
         name: action.name,
         todos: [],
         completed: false,
-        listId: getId()
+        listId: (0, _utils.getId)()
+      };
+      break;
+    case 'REMOVE_TODOS_LIST':
+      return state.listId === action.listId;
+      break;
+
+    case 'TOGGLE_TODOS_LIST':
+      if (state.listId === action.listId) {
+        return Object.assign({}, state, { completed: !state.completed });
+      }
+      return state;
+      break;
+
+    case 'EDIT_TODOS_LIST_NAME':
+      if (state.listId === action.listId) {
+        return Object.assign({}, state, { name: action.name });
+      }
+      return state;
+      break;
+
+    case 'ADD_ITEM':
+      if (state.listId === action.listId) {
+        return Object.assign({}, state, { todos: [].concat(_toConsumableArray(state.todos), [(0, _todoitems2.default)(undefined, action)]) });
+      }
+      return state;
+      break;
+    default:
+      return state;
+      break;
+  }
+};
+
+exports.default = todosList;
+
+/***/ }),
+/* 26 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+/* TODOS_LIST Actions */
+var AddNewTodosList = exports.AddNewTodosList = function AddNewTodosList(name) {
+  return {
+    type: 'ADD_NEW_TODOS_LIST',
+    name: name
+  };
+};
+
+var RemoveTodosList = exports.RemoveTodosList = function RemoveTodosList(listId) {
+  return {
+    type: 'REMOVE_TODOS_LIST',
+    listId: listId
+  };
+};
+
+var ToggleTodosList = exports.ToggleTodosList = function ToggleTodosList(listId) {
+  return {
+    type: 'TOGGLE_TODOS_LIST',
+    listId: listId
+  };
+};
+
+var EditTodoListName = exports.EditTodoListName = function EditTodoListName(listId, name) {
+  return {
+    type: 'EDIT_TODOS_LIST_NAME',
+    listId: listId,
+    name: name
+  };
+};
+
+/* ITEMS Actions */
+
+var AddItem = exports.AddItem = function AddItem(listId, name) {
+  return {
+    type: 'ADD_ITEM',
+    listId: listId,
+    name: name
+  };
+};
+
+var ToggleItem = exports.ToggleItem = function ToggleItem(listId, itemId) {
+  return {
+    type: 'TOGGLE_ITEM',
+    listId: listId,
+    itemId: itemId
+  };
+};
+
+var RemoveItem = exports.RemoveItem = function RemoveItem(listId, itemId) {
+  return {
+    type: 'REMOVE_ITEM',
+    listId: listId,
+    itemId: itemId
+  };
+};
+
+var EditItemName = exports.EditItemName = function EditItemName(listId, itemId, name) {
+  return {
+    type: 'EDIT_ITEM_NAME',
+    listId: listId,
+    itemId: itemId,
+    name: name
+  };
+};
+
+exports.default = null;
+
+/***/ }),
+/* 27 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var getId = exports.getId = function getId() {
+  return new Date().getTime() + "-" + Math.floor(Math.random() * 1000);
+};
+
+/***/ }),
+/* 28 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _utils = __webpack_require__(27);
+
+var todosItems = function todosItems() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  var action = arguments[1];
+
+  switch (action.type) {
+    case 'ADD_ITEM':
+      return {
+        name: action.name,
+        listId: action.listId,
+        completed: false,
+        id: (0, _utils.getId)()
       };
       break;
     default:
@@ -1347,94 +1575,7 @@ const todosList = (state = { name: '', todos: [] }, action) => {
   }
 };
 
-const reducer = (state = [], action) => {
-  console.info(action);
-  switch (action.type) {
-    case 'ADD_NEW_TODOS_LIST':
-      return [...state, todosList(undefined, action)];
-      break;
-    case 'REMOVE_TODOS_LIST':
-      return state.filter(tl => tl.listId !== action.listId);
-      break;
-    default:
-      return state;
-      break;
-  }
-};
-
-/* harmony default export */ __webpack_exports__["a"] = (reducer);
-
-/***/ }),
-/* 25 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* TODOS_LIST Actions */
-const AddNewTodosList = name => ({
-  type: 'ADD_NEW_TODOS_LIST',
-  name
-});
-/* harmony export (immutable) */ __webpack_exports__["a"] = AddNewTodosList;
-
-
-const RemoveTodosList = listId => ({
-  type: 'REMOVE_TODOS_LIST',
-  listId
-});
-/* harmony export (immutable) */ __webpack_exports__["b"] = RemoveTodosList;
-
-
-const ToggleTodosList = listId => ({
-  type: 'TOGGLE_TODOS_LIST',
-  listId
-});
-/* unused harmony export ToggleTodosList */
-
-
-const EditName = (listId, name) => ({
-  type: 'EDIT_TODOS_LIST_NAME',
-  listId,
-  name
-});
-/* unused harmony export EditName */
-
-
-/* ITEMS Actions */
-
-const AddItem = (listId, name) => ({
-  type: 'ADD_ITEM',
-  listId,
-  name
-});
-/* unused harmony export AddItem */
-
-
-const ToggleItem = (listId, itemId) => ({
-  type: 'TOGGLE_ITEM',
-  listId,
-  itemId
-});
-/* unused harmony export ToggleItem */
-
-
-const RemoveItem = (listId, itemId) => ({
-  type: 'REMOVE_ITEM',
-  listId,
-  itemId
-});
-/* unused harmony export RemoveItem */
-
-
-const EditItemName = (listId, itemId, name) => ({
-  type: 'EDIT_ITEM_NAME',
-  listId,
-  itemId,
-  name
-});
-/* unused harmony export EditItemName */
-
-
-/* unused harmony default export */ var _unused_webpack_default_export = (null);
+exports.default = todosItems;
 
 /***/ })
 /******/ ]);
