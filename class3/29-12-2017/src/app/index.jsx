@@ -5,39 +5,30 @@ import { render } from 'react-dom';
 import reducers from './reducers';
 import { AddNewTodosList, ToggleTodosList, RemoveTodosList, EditTodoListName, AddItem} from './actions';
 
+import TodosList from './components/TodosList/index.jsx';
+import AddForm from './components/AddForm/index.jsx';
+
 const store = createStore(reducers);
 const Title = ({ text }) => (<h1>{text}</h1>);
 
 window.getNextId = ((n = 0) => () => n += 1)();
 
-const TodosList = ({ name, todos, completed, listId }) => (
+const App = ({ todoslist }) => (
   <div>
-    <h2>{name}</h2>
-    <ul>
-      {todos.map(t => (
-        <li key={`t-${window.getNextId()}`}>{t.name}</li>
-      ))}
-    </ul>
+    <Title text={'TodosApp v1.0'} />
+    <AddForm title={'Add Todos List'} />
+    {todoslist.map(tl => (
+      <TodosList
+        name={tl.name}
+        todos={tl.todos}
+        completed={tl.completed}
+        listId={tl.listId}
+        key={`tl-${window.getNextId()}`}
+      />)
+    )}
   </div>
 );
 
-
-const App = ({ todoslist }) => {
-  console.info('todoslist: ', todoslist);
-  return (
-    <div>
-      <Title text={'My React Super App'} age={32}  dni={'123182389'} />
-      {todoslist.map(tl => (
-        <TodosList
-          name={tl.name}
-          todos={tl.todos}
-          completed={tl.completed}
-          listId={tl.listId}
-          key={`tl-${window.getNextId()}`}
-        />))}
-    </div>
-  );
-}
 
 const appRender = (state)=> render(<App todoslist={state} />,
 document.getElementById('app')
@@ -49,7 +40,8 @@ store.subscribe(() => {
   appRender(store.getState());
 });
 
-
+window.store = store;
+window.ToggleTodosList = ToggleTodosList;
 store.dispatch(AddNewTodosList('supermarket'));
 store.dispatch(AddNewTodosList('React Lesson'));
 store.dispatch(AddNewTodosList('Guitar Hero'));
