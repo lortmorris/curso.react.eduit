@@ -2,10 +2,10 @@ import React from 'react';
 import TodoItem from '../TodoItem/index.jsx';
 import AddForm from '../AddForm/index.jsx';
 
-const TodosList = ({ name, todos, completed, listId }) => (
-  <div>
+const TodosList = ({ name, todos, completed, listId, dispatch }) => (
+  <div style={{width: '350px', float: 'left', height: '400px'}}>
     <h2 style={{color: `${completed ? 'blue' : 'red'}`}}>{name}</h2>
-    <AddForm title={'Add Item'}/>
+    <AddForm title={'Add Item'} dispatch={dispatch} listId={listId} />
     <ul className={'list-group'}>
       {todos.map(t => (
         <TodoItem

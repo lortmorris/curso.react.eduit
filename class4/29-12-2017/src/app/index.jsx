@@ -19,10 +19,10 @@ const Title = ({ text }) => (<h1>{text}</h1>);
 
 window.getNextId = ((n = 0) => () => n += 1)();
 
-const App = ({ todoslist }) => (
-  <div className={'row'}>
+const App = ({ todoslist, dispatch }) => (
+  <div>
     <Title text={'TodosApp v1.0'} />
-    <AddForm title={'Add Todos List'} />
+    <AddForm title={'Add Todos List'} dispatch={dispatch} />
     {todoslist.map(tl => (
       <TodosList
         name={tl.name}
@@ -30,13 +30,14 @@ const App = ({ todoslist }) => (
         completed={tl.completed}
         listId={tl.listId}
         key={`tl-${window.getNextId()}`}
+        dispatch={dispatch}
       />)
     )}
   </div>
 );
 
 
-const appRender = (state)=> render(<App todoslist={state} />,
+const appRender = (state)=> render(<App todoslist={state} dispatch={store.dispatch} />,
 document.getElementById('app')
 );
 

@@ -33,7 +33,6 @@ const todosList = (state = { name: '', todos: [] }, action) => {
         return state;
 
       case 'TOGGLE_ITEM':
-      console.info('toggle: ', action);
       if (state.listId === action.listId ) {
         return Object.assign({}, state, { todos: state.todos.map(t => todosItems(t, action)) });
       }

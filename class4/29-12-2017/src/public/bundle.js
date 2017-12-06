@@ -1397,34 +1397,88 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _actions = __webpack_require__(54);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var AddForm = function AddForm(_ref) {
-  var title = _ref.title;
-  return _react2.default.createElement(
-    'div',
-    { className: 'form-group' },
-    _react2.default.createElement(
-      'form',
-      null,
-      _react2.default.createElement(
-        'label',
-        { htmlFor: 'example-text-input', className: 'col-2 col-form-label' },
-        title
-      ),
-      _react2.default.createElement(
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var AddForm = function (_React$Component) {
+  _inherits(AddForm, _React$Component);
+
+  function AddForm(props) {
+    _classCallCheck(this, AddForm);
+
+    var _this = _possibleConstructorReturn(this, (AddForm.__proto__ || Object.getPrototypeOf(AddForm)).call(this, props));
+
+    _this.state = {
+      value: ''
+    };
+
+    _this.changeValue = _this.changeValue.bind(_this);
+    _this.onSubmitHandler = _this.onSubmitHandler.bind(_this);
+    return _this;
+  }
+
+  _createClass(AddForm, [{
+    key: 'changeValue',
+    value: function changeValue(evt) {
+      this.setState({ value: evt.target.value });
+    }
+  }, {
+    key: 'onSubmitHandler',
+    value: function onSubmitHandler(evt) {
+      evt.preventDefault();
+      this.props.dispatch(this.props.listId ? (0, _actions.AddItem)(this.props.listId, this.state.value) : (0, _actions.AddNewTodosList)(this.state.value));
+      this.setState({ value: '' });
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _props = this.props,
+          title = _props.title,
+          dispatch = _props.dispatch;
+
+      return _react2.default.createElement(
         'div',
-        { className: 'col-10' },
-        _react2.default.createElement('input', { className: 'form-control', type: 'text', value: '', id: 'example-text-input' })
-      ),
-      _react2.default.createElement('input', { type: 'submit', value: 'Add+ ', className: 'btn btn-primary' })
-    )
-  );
-};
+        { className: 'form-group' },
+        _react2.default.createElement(
+          'form',
+          { onSubmit: this.onSubmitHandler },
+          _react2.default.createElement(
+            'label',
+            { htmlFor: 'example-text-input', className: 'col-2 col-form-label' },
+            title
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'col-10' },
+            _react2.default.createElement('input', {
+              className: 'form-control',
+              type: 'text',
+              value: this.state.value,
+              id: 'example-text-input',
+              onChange: this.changeValue
+            })
+          ),
+          _react2.default.createElement('input', { type: 'submit', value: 'Add+ ', className: 'btn btn-primary' })
+        )
+      );
+    }
+  }]);
+
+  return AddForm;
+}(_react2.default.Component);
 
 exports.default = AddForm;
 
@@ -1477,26 +1531,28 @@ window.getNextId = function () {
 }();
 
 var App = function App(_ref2) {
-  var todoslist = _ref2.todoslist;
+  var todoslist = _ref2.todoslist,
+      dispatch = _ref2.dispatch;
   return _react2.default.createElement(
     'div',
-    { className: 'row' },
+    null,
     _react2.default.createElement(Title, { text: 'TodosApp v1.0' }),
-    _react2.default.createElement(_index4.default, { title: 'Add Todos List' }),
+    _react2.default.createElement(_index4.default, { title: 'Add Todos List', dispatch: dispatch }),
     todoslist.map(function (tl) {
       return _react2.default.createElement(_index2.default, {
         name: tl.name,
         todos: tl.todos,
         completed: tl.completed,
         listId: tl.listId,
-        key: 'tl-' + window.getNextId()
+        key: 'tl-' + window.getNextId(),
+        dispatch: dispatch
       });
     })
   );
 };
 
 var appRender = function appRender(state) {
-  return (0, _reactDom.render)(_react2.default.createElement(App, { todoslist: state }), document.getElementById('app'));
+  return (0, _reactDom.render)(_react2.default.createElement(App, { todoslist: state, dispatch: store.dispatch }), document.getElementById('app'));
 };
 
 appRender([]);
@@ -19552,7 +19608,6 @@ var todosList = function todosList() {
       return state;
 
     case 'TOGGLE_ITEM':
-      console.info('toggle: ', action);
       if (state.listId === action.listId) {
         return Object.assign({}, state, { todos: state.todos.map(function (t) {
             return (0, _todoitems2.default)(t, action);
@@ -19711,16 +19766,17 @@ var TodosList = function TodosList(_ref) {
   var name = _ref.name,
       todos = _ref.todos,
       completed = _ref.completed,
-      listId = _ref.listId;
+      listId = _ref.listId,
+      dispatch = _ref.dispatch;
   return _react2.default.createElement(
     'div',
-    null,
+    { style: { width: '350px', float: 'left', height: '400px' } },
     _react2.default.createElement(
       'h2',
       { style: { color: '' + (completed ? 'blue' : 'red') } },
       name
     ),
-    _react2.default.createElement(_index4.default, { title: 'Add Item' }),
+    _react2.default.createElement(_index4.default, { title: 'Add Item', dispatch: dispatch, listId: listId }),
     _react2.default.createElement(
       'ul',
       { className: 'list-group' },
