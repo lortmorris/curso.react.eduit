@@ -14,6 +14,7 @@ const TodosList = ({ name, todos, completed, listId, dispatch }) => (
           completed={t.completed}
           id={t.id}
           listId={t.listId}
+          dispatch={dispatch}
         />
       ))}
     </ul>

@@ -20,7 +20,7 @@ const Title = ({ text }) => (<h1>{text}</h1>);
 window.getNextId = ((n = 0) => () => n += 1)();
 
 const App = ({ todoslist, dispatch }) => (
-  <div>
+  <div className={'row'}>
     <Title text={'TodosApp v1.0'} />
     <AddForm title={'Add Todos List'} dispatch={dispatch} />
     {todoslist.map(tl => (

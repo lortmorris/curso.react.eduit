@@ -38,6 +38,11 @@ const todosList = (state = { name: '', todos: [] }, action) => {
       }
       return state;
 
+      case 'REMOVE_ITEM':
+      if (state.listId === action.listId ) {
+        return Object.assign({}, state, { todos: state.todos.filter(t => todosItems(t, action)) });
+      }
+      return state;
       default:
         return state;
 

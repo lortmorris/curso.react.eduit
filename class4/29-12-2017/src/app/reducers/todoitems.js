@@ -13,6 +13,10 @@ const todosItems = (state = {}, action ) => {
     case 'TOGGLE_ITEM':
       if (state.id === action.itemId) return Object.assign({}, state, {completed: !state.completed} );
       return state;
+
+    case 'REMOVE_ITEM':
+      return state.id !== action.itemId;
+
     default :
       return state;
 

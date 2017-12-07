@@ -20,6 +20,9 @@ const reducer = (state = [], action) => {
     case 'TOGGLE_ITEM':
       return state.map(tl => todosList(tl, action));
 
+    case 'REMOVE_ITEM':
+      return state.map(tl => todosList(tl, action));
+
     default:
       return state;
 
