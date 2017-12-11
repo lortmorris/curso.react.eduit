@@ -41,4 +41,8 @@ app.put('/state', (req, res) => {
   res.json(state);
 });
 
+app.get('/state', (req, res) => {
+  res.json(state);
+});
+
 server.listen(5000, () => console.info('ready on port *:5000'));
