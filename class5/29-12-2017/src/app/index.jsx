@@ -13,6 +13,7 @@ import { AddNewTodosList,
 
 import TodosList from './components/TodosList/index.jsx';
 import AddForm from './components/AddForm/index.jsx';
+import ApiClient from './api/client';
 
 const store = createStore(reducers);
 const Title = ({ text }) => (<h1>{text}</h1>);
@@ -45,6 +46,11 @@ appRender([]);
 
 store.subscribe(() => {
   appRender(store.getState());
+  ApiClient({
+    method: 'put',
+    url: 'http://localhost:5000/state',
+    params: store.getState(),
+  });
 });
 
 window.store = store;

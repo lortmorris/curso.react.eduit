@@ -1,6 +1,6 @@
 import React from 'react';
 
-
+import ApiClient from '../../api/client.js'
 import { AddNewTodosList, AddItem } from '../../actions';
 
 
@@ -23,11 +23,23 @@ class AddForm extends React.Component {
 
   onSubmitHandler(evt) {
     evt.preventDefault();
-    this.props.dispatch(
-      this.props.listId ?
-        AddItem(this.props.listId, this.state.value) :
-        AddNewTodosList(this.state.value)
-      );
+
+    if (this.props.listId) {
+    this.props.dispatch( AddItem(this.props.listId, this.state.value) );
+      ApiClient({
+        method: 'put',
+        url: 'http://localhost:5000/addtodoitem',
+        params: AddItem(this.props.listId, this.state.value),
+      });
+    }else{
+      this.props.dispatch( AddNewTodosList(this.state.value) );
+      ApiClient({
+        method: 'put',
+        url: 'http://localhost:5000/addtodolist',
+        params: AddNewTodosList(this.state.value),
+      });
+    }
+
     this.setState({ value: '' });
   }
 
