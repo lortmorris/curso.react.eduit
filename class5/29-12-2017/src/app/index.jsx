@@ -37,31 +37,31 @@ const App = ({ todoslist, dispatch }) => (
   </div>
 );
 
+ApiClient({
+  method: 'get',
+  url: 'http://localhost:5000/state',
+})
+.then(response => {
+  store.dispatch({ type: 'INIT_LOAD', data: response.data });
+  appRender(response.data);
+});
+
+
 
 const appRender = (state)=> render(<App todoslist={state} dispatch={store.dispatch} />,
 document.getElementById('app')
 );
 
-appRender([]);
+
 
 store.subscribe(() => {
-  appRender(store.getState());
   ApiClient({
     method: 'put',
     url: 'http://localhost:5000/state',
     params: store.getState(),
   });
+  appRender(store.getState());
 });
 
 window.store = store;
 window.ToggleTodosList = ToggleTodosList;
-store.dispatch(AddNewTodosList('supermarket'));
-store.dispatch(AddNewTodosList('React Lesson'));
-store.dispatch(AddNewTodosList('Guitar Hero'));
-store.dispatch(ToggleTodosList(store.getState()[0].listId));
-store.dispatch(EditTodoListName(store.getState()[0].listId, 'Coto'));
-store.dispatch(AddItem(store.getState()[0].listId, 'Comprar red bull'));
-store.dispatch(AddItem(store.getState()[0].listId, 'Comprar Pizza'));
-store.dispatch(AddItem(store.getState()[0].listId, 'Comprar Milanesas'));
-store.dispatch(ToggleItem(store.getState()[0].listId, store.getState()[0].todos[0].id));
-// store.dispatch(RemoveTodosList(store.getState()[0].listId));

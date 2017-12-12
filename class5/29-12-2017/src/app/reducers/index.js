@@ -23,6 +23,9 @@ const reducer = (state = [], action) => {
     case 'REMOVE_ITEM':
       return state.map(tl => todosList(tl, action));
 
+    case 'INIT_LOAD':
+      return action.data;
+
     default:
       return state;
 

@@ -1652,33 +1652,29 @@ var App = function App(_ref2) {
   );
 };
 
+(0, _client2.default)({
+  method: 'get',
+  url: 'http://localhost:5000/state'
+}).then(function (response) {
+  store.dispatch({ type: 'INIT_LOAD', data: response.data });
+  appRender(response.data);
+});
+
 var appRender = function appRender(state) {
   return (0, _reactDom.render)(_react2.default.createElement(App, { todoslist: state, dispatch: store.dispatch }), document.getElementById('app'));
 };
 
-appRender([]);
-
 store.subscribe(function () {
-  appRender(store.getState());
   (0, _client2.default)({
     method: 'put',
     url: 'http://localhost:5000/state',
     params: store.getState()
   });
+  appRender(store.getState());
 });
 
 window.store = store;
 window.ToggleTodosList = _actions.ToggleTodosList;
-store.dispatch((0, _actions.AddNewTodosList)('supermarket'));
-store.dispatch((0, _actions.AddNewTodosList)('React Lesson'));
-store.dispatch((0, _actions.AddNewTodosList)('Guitar Hero'));
-store.dispatch((0, _actions.ToggleTodosList)(store.getState()[0].listId));
-store.dispatch((0, _actions.EditTodoListName)(store.getState()[0].listId, 'Coto'));
-store.dispatch((0, _actions.AddItem)(store.getState()[0].listId, 'Comprar red bull'));
-store.dispatch((0, _actions.AddItem)(store.getState()[0].listId, 'Comprar Pizza'));
-store.dispatch((0, _actions.AddItem)(store.getState()[0].listId, 'Comprar Milanesas'));
-store.dispatch((0, _actions.ToggleItem)(store.getState()[0].listId, store.getState()[0].todos[0].id));
-// store.dispatch(RemoveTodosList(store.getState()[0].listId));
 
 /***/ }),
 /* 24 */
@@ -19654,6 +19650,9 @@ var reducer = function reducer() {
       return state.map(function (tl) {
         return (0, _todosList2.default)(tl, action);
       });
+
+    case 'INIT_LOAD':
+      return action.data;
 
     default:
       return state;
