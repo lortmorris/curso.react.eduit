@@ -1,0 +1,25 @@
+<html>
+  <head>
+
+
+  </head>
+  <body>
+    <h1>Curso de React.js class 2</h1>
+
+      <input type="text" id="title" />
+      <input type="button" value="+Add" onclick="handlerAddTodo"/>
+
+    <ul id="todosList"></ul>
+    <script type="text/javascript" src="./vendor.js"></script>
+    <script type="text/javascript">
+
+      const handlerAddTodo = function() {
+        console.info('prevent: ', event);
+        const title = document.getElementById('title').value;
+        store.dispatch(actions.addTodo(title));
+        return false;
+      };
+
+    </script>
+  </body>
+</html>
