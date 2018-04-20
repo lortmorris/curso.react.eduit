@@ -1,0 +1,23 @@
+<html>
+
+<head>
+
+  <script type="text/javascript">
+
+  const dbQuery = (sql) => new Promise((resolve, reject) => {
+    setTimeout(() => resolve([1, 2, 3, 4, 5]), 1000);
+  });
+
+  const n1 = await dbQuery('select * from Numbers');
+  const n2 = await dbQuery('select * from Numbers');
+  const n3 = await dbQuery('select * from Numbers');
+  const n4 = await dbQuery('select * from Numbers');
+  const n5 = await dbQuery('select * from Numbers');
+  console.info(n1, n2, n3, n4, n5);
+  </script>
+</head>
+<body>
+
+  <h1>React.js</h1>
+</body>
+</html>
