@@ -85,6 +85,14 @@
 	      id: 0
 	    }],
 	    id: 0
+	  }, {
+	    title: 'My List 2',
+	    todos: [{
+	      title: 'my task 1',
+	      completed: true,
+	      id: 0
+	    }],
+	    id: 1
 	  }]
 	};
 
@@ -23003,13 +23011,18 @@
 
 	var _Title2 = _interopRequireDefault(_Title);
 
+	var _AddNewList = __webpack_require__(209);
+
+	var _AddNewList2 = _interopRequireDefault(_AddNewList);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var MyHeader = function MyHeader() {
 	  return _react2.default.createElement(
 	    'div',
 	    null,
-	    _react2.default.createElement(_Title2.default, { title: 'TodosApp v1.0', color: '#ff22aa' })
+	    _react2.default.createElement(_Title2.default, { title: 'TodosApp v1.0', color: '#ff22aa' }),
+	    _react2.default.createElement(_AddNewList2.default, null)
 	  );
 	};
 
@@ -23129,12 +23142,21 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
+	var _Item = __webpack_require__(208);
+
+	var _Item2 = _interopRequireDefault(_Item);
+
+	var _AddNewTask = __webpack_require__(210);
+
+	var _AddNewTask2 = _interopRequireDefault(_AddNewTask);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var Todos = function Todos(_ref) {
 	  var title = _ref.title,
 	      completed = _ref.completed,
-	      id = _ref.id;
+	      id = _ref.id,
+	      todos = _ref.todos;
 	  return _react2.default.createElement(
 	    'div',
 	    null,
@@ -23142,10 +23164,123 @@
 	      'h2',
 	      null,
 	      title
+	    ),
+	    _react2.default.createElement(
+	      'button',
+	      null,
+	      '[X]'
+	    ),
+	    _react2.default.createElement(_AddNewTask2.default, null),
+	    _react2.default.createElement(
+	      'ul',
+	      null,
+	      todos.map(function (t) {
+	        return _react2.default.createElement(_Item2.default, {
+	          title: t.title,
+	          id: t.id,
+	          completed: t.completed,
+	          key: t.id
+	        });
+	      })
 	    )
 	  );
 	};
 	exports.default = Todos;
+
+/***/ }),
+/* 208 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var Item = function Item(_ref) {
+	  var title = _ref.title,
+	      id = _ref.id,
+	      completed = _ref.completed;
+	  return _react2.default.createElement(
+	    'li',
+	    { style: { color: '' + (completed ? 'blue' : 'red') } },
+	    title,
+	    _react2.default.createElement(
+	      'button',
+	      null,
+	      'X'
+	    )
+	  );
+	};
+
+	exports.default = Item;
+
+/***/ }),
+/* 209 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var AddNewList = function AddNewList() {
+	  return _react2.default.createElement(
+	    "div",
+	    null,
+	    _react2.default.createElement(
+	      "form",
+	      null,
+	      _react2.default.createElement("input", { type: "text", placeholder: "New Task name..." }),
+	      _react2.default.createElement("input", { type: "submit" })
+	    )
+	  );
+	};
+
+	exports.default = AddNewList;
+
+/***/ }),
+/* 210 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var AddNewTask = function AddNewTask() {
+	  return _react2.default.createElement(
+	    "div",
+	    null,
+	    _react2.default.createElement(
+	      "form",
+	      null,
+	      _react2.default.createElement("input", { type: "text", placeholder: "New Task Title..." })
+	    )
+	  );
+	};
+
+	exports.default = AddNewTask;
 
 /***/ })
 /******/ ]);

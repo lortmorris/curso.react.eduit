@@ -22,7 +22,17 @@ const localstate = {
       id: 0,
     }],
     id: 0,
-  }],
+  },
+  {
+    title: 'My List 2',
+    todos: [{
+      title: 'my task 1',
+      completed: true,
+      id: 0,
+    }],
+    id: 1,
+  }
+],
 };
 
 const appRender = () => render(<App state={localstate} />, document.getElementById('app'));
