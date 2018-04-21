@@ -54,20 +54,26 @@
 
 	var _redux = __webpack_require__(184);
 
+	var _reducers = __webpack_require__(211);
+
+	var _reducers2 = _interopRequireDefault(_reducers);
+
+	var _actions = __webpack_require__(212);
+
 	var _MyHeader = __webpack_require__(204);
 
 	var _MyHeader2 = _interopRequireDefault(_MyHeader);
 
-	var _TodosList = __webpack_require__(206);
+	var _TodosList = __webpack_require__(207);
 
 	var _TodosList2 = _interopRequireDefault(_TodosList);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+	var store = (0, _redux.createStore)(_reducers2.default);
+
 	var App = function App(_ref) {
 	  var state = _ref.state;
-
-	  console.info('state: ', state);
 	  return _react2.default.createElement(
 	    'div',
 	    null,
@@ -76,29 +82,23 @@
 	  );
 	};
 
-	var localstate = {
-	  todoslist: [{
-	    title: 'My List 1',
-	    todos: [{
-	      title: 'my task 1',
-	      completed: false,
-	      id: 0
-	    }],
-	    id: 0
-	  }, {
-	    title: 'My List 2',
-	    todos: [{
-	      title: 'my task 1',
-	      completed: true,
-	      id: 0
-	    }],
-	    id: 1
-	  }]
+	var appRender = function appRender() {
+	  return (0, _reactDom.render)(_react2.default.createElement(App, { state: store.getState() }), document.getElementById('app'));
 	};
 
-	var appRender = function appRender() {
-	  return (0, _reactDom.render)(_react2.default.createElement(App, { state: localstate }), document.getElementById('app'));
-	};
+	store.subscribe(appRender);
+
+	store.dispatch((0, _actions.addTodosList)('lista de tareas 1'));
+	store.dispatch((0, _actions.addTodo)(0, 'task 1'));
+	store.dispatch((0, _actions.addTodo)(0, 'task 2'));
+	store.dispatch((0, _actions.addTodo)(0, 'task 3'));
+	store.dispatch((0, _actions.toggleTodo)(0, 1)); // completed
+
+	store.dispatch((0, _actions.addTodosList)('Lista de tareas 2'));
+	store.dispatch((0, _actions.addTodo)(1, 'Para hace 1'));
+	store.dispatch((0, _actions.addTodo)(1, 'Para hace 2'));
+	store.dispatch((0, _actions.addTodo)(1, 'Para hace 3'));
+	store.dispatch((0, _actions.toggleTodo)(1, 2)); // completed
 
 	appRender();
 
@@ -23011,7 +23011,7 @@
 
 	var _Title2 = _interopRequireDefault(_Title);
 
-	var _AddNewList = __webpack_require__(209);
+	var _AddNewList = __webpack_require__(206);
 
 	var _AddNewList2 = _interopRequireDefault(_AddNewList);
 
@@ -23093,6 +23093,37 @@
 /* 206 */
 /***/ (function(module, exports, __webpack_require__) {
 
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var AddNewList = function AddNewList() {
+	  return _react2.default.createElement(
+	    "div",
+	    null,
+	    _react2.default.createElement(
+	      "form",
+	      null,
+	      _react2.default.createElement("input", { type: "text", placeholder: "New Task name..." }),
+	      _react2.default.createElement("input", { type: "submit" })
+	    )
+	  );
+	};
+
+	exports.default = AddNewList;
+
+/***/ }),
+/* 207 */
+/***/ (function(module, exports, __webpack_require__) {
+
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
@@ -23103,7 +23134,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Todos = __webpack_require__(207);
+	var _Todos = __webpack_require__(208);
 
 	var _Todos2 = _interopRequireDefault(_Todos);
 
@@ -23129,7 +23160,7 @@
 	exports.default = TodosList;
 
 /***/ }),
-/* 207 */
+/* 208 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -23142,7 +23173,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Item = __webpack_require__(208);
+	var _Item = __webpack_require__(209);
 
 	var _Item2 = _interopRequireDefault(_Item);
 
@@ -23188,7 +23219,7 @@
 	exports.default = Todos;
 
 /***/ }),
-/* 208 */
+/* 209 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -23222,37 +23253,6 @@
 	exports.default = Item;
 
 /***/ }),
-/* 209 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	var AddNewList = function AddNewList() {
-	  return _react2.default.createElement(
-	    "div",
-	    null,
-	    _react2.default.createElement(
-	      "form",
-	      null,
-	      _react2.default.createElement("input", { type: "text", placeholder: "New Task name..." }),
-	      _react2.default.createElement("input", { type: "submit" })
-	    )
-	  );
-	};
-
-	exports.default = AddNewList;
-
-/***/ }),
 /* 210 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -23281,6 +23281,109 @@
 	};
 
 	exports.default = AddNewTask;
+
+/***/ }),
+/* 211 */
+/***/ (function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
+	var initialState = {
+	  todoslist: []
+	};
+
+	var id = 0;
+
+	var todo = function todo() {
+	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+	  var action = arguments[1];
+
+	  switch (action.type) {
+	    case 'ADD_TODO':
+	      return {
+	        title: action.title,
+	        id: id++,
+	        completed: false
+	      };
+	      break;
+	    case 'REMOVE_TODO':
+	      return state.id !== action.id;
+
+	    case 'TOGGLE_TODO':
+	      if (state.id !== action.id) return state;
+	      return Object.assign({}, state, { completed: !state.completed });
+	      break;
+	    default:
+	      return state;
+	  }
+	};
+
+	var reducer = function reducer() {
+	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+	  var action = arguments[1];
+
+	  switch (action.type) {
+	    case 'ADD_TODO':
+	      return [].concat(_toConsumableArray(state), [todo(undefined, action)]);
+	      break;
+	    case 'REMOVE_TODO':
+	      return state.filter(function (t) {
+	        return todo(t, action);
+	      });
+
+	    case 'TOGGLE_TODO':
+	      return state.map(function (t) {
+	        return todo(t, action);
+	      });
+	    default:
+	      return state;
+	  }
+	};
+
+	exports.default = reducer;
+
+/***/ }),
+/* 212 */
+/***/ (function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	var addTodo = exports.addTodo = function addTodo(title) {
+	  return {
+	    type: 'ADD_TODO',
+	    title: title
+	  };
+	};
+
+	var removeTodo = exports.removeTodo = function removeTodo(id) {
+	  return {
+	    type: 'REMOVE_TODO',
+	    id: id
+	  };
+	};
+
+	var toggleTodo = exports.toggleTodo = function toggleTodo(id) {
+	  return {
+	    type: 'TOGGLE_TODO',
+	    id: id
+	  };
+	};
+
+	var addTodosList = exports.addTodosList = function addTodosList(title) {
+	  return {
+	    type: 'ADD_TODO_LIST',
+	    title: title
+	  };
+	};
 
 /***/ })
 /******/ ]);

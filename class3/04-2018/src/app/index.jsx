@@ -1,40 +1,35 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { createStore } from 'redux';
+import reducer from './reducers';
+import { addTodo, removeTodo, toggleTodo, addTodosList } from './actions';
 import MyHeader from './components/MyHeader.jsx';
 import TodosList from './components/TodosList.jsx';
-const App = ({ state }) => {
-  console.info('state: ', state);
-  return (
-    <div>
-      <MyHeader />
-      <TodosList todoslist={state.todoslist}/>
-    </div>
-  );
-}
 
-const localstate = {
-  todoslist: [{
-    title: 'My List 1',
-    todos: [{
-      title: 'my task 1',
-      completed: false,
-      id: 0,
-    }],
-    id: 0,
-  },
-  {
-    title: 'My List 2',
-    todos: [{
-      title: 'my task 1',
-      completed: true,
-      id: 0,
-    }],
-    id: 1,
-  }
-],
-};
+const store = createStore(reducer);
 
-const appRender = () => render(<App state={localstate} />, document.getElementById('app'));
+const App = ({ state }) => (
+  <div>
+    <MyHeader />
+    <TodosList todoslist={state.todoslist}/>
+  </div>
+);
+
+
+const appRender = () => render(<App state={store.getState()} />, document.getElementById('app'));
+
+store.subscribe(appRender);
+
+store.dispatch(addTodosList('lista de tareas 1'));
+store.dispatch(addTodo(0, 'task 1'));
+store.dispatch(addTodo(0, 'task 2'));
+store.dispatch(addTodo(0, 'task 3'));
+store.dispatch(toggleTodo(0, 1)); // completed
+
+store.dispatch(addTodosList('Lista de tareas 2'));
+store.dispatch(addTodo(1, 'Para hace 1'));
+store.dispatch(addTodo(1, 'Para hace 2'));
+store.dispatch(addTodo(1, 'Para hace 3'));
+store.dispatch(toggleTodo(1, 2)); // completed
 
 appRender();
