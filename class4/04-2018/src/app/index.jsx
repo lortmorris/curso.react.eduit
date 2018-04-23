@@ -21,6 +21,7 @@ const appRender = () => render(<App state={store.getState()} />, document.getEle
 store.subscribe(appRender);
 
 store.dispatch(addTodosList('lista de tareas 1'));
+console.info('STATE: ', store.getState());
 store.dispatch(addTodo(0, 'task 1'));
 store.dispatch(addTodo(0, 'task 2'));
 store.dispatch(addTodo(0, 'task 3'));

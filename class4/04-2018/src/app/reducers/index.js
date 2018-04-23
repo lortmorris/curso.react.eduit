@@ -25,11 +25,30 @@ const todo = (state = {}, action) => {
   }
 }
 
+const todoList = (state = {}, action) => {
+  switch(action.type) {
+    case 'ADD_TODO_LIST':
+      return {
+        id: id++,
+        title: action.title,
+        todos: [],
+      };
+    case 'ADD_TODO':
+      if (state.id === action.listId) {
+        return Object.assign({}, state, { todos: [...state.todos, todo(undefined, action)] });
+      }
+      return state;
+  }
+}
 
 const reducer = (state = initialState, action) => {
+  console.info('reducer called: ', state, action);
   switch(action.type) {
+    case 'ADD_TODO_LIST':
+      return Object.assign({}, state, { todoslist: [...state.todoslist, todoList(undefined, action)] });
+
     case 'ADD_TODO':
-      return [...state, todo(undefined, action)];
+      return Object.assign({}, state, { todoslist: state.todoslist.map(tl => todoList(tl, action)) });
     break;
     case 'REMOVE_TODO':
       return state.filter(t => todo(t, action));

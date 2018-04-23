@@ -89,6 +89,7 @@
 	store.subscribe(appRender);
 
 	store.dispatch((0, _actions.addTodosList)('lista de tareas 1'));
+	console.info('STATE: ', store.getState());
 	store.dispatch((0, _actions.addTodo)(0, 'task 1'));
 	store.dispatch((0, _actions.addTodo)(0, 'task 2'));
 	store.dispatch((0, _actions.addTodo)(0, 'task 3'));
@@ -23035,13 +23036,38 @@
 	  }
 	};
 
+	var todoList = function todoList() {
+	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+	  var action = arguments[1];
+
+	  switch (action.type) {
+	    case 'ADD_TODO_LIST':
+	      return {
+	        id: id++,
+	        title: action.title,
+	        todos: []
+	      };
+	    case 'ADD_TODO':
+	      if (state.id === action.listId) {
+	        return Object.assign({}, state, { todos: [].concat(_toConsumableArray(state.todos), [todo(undefined, action)]) });
+	      }
+	      return state;
+	  }
+	};
+
 	var reducer = function reducer() {
 	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
 	  var action = arguments[1];
 
+	  console.info('reducer called: ', state, action);
 	  switch (action.type) {
+	    case 'ADD_TODO_LIST':
+	      return Object.assign({}, state, { todoslist: [].concat(_toConsumableArray(state.todoslist), [todoList(undefined, action)]) });
+
 	    case 'ADD_TODO':
-	      return [].concat(_toConsumableArray(state), [todo(undefined, action)]);
+	      return Object.assign({}, state, { todoslist: state.todoslist.map(function (tl) {
+	          return todoList(tl, action);
+	        }) });
 	      break;
 	    case 'REMOVE_TODO':
 	      return state.filter(function (t) {
@@ -23068,24 +23094,27 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	var addTodo = exports.addTodo = function addTodo(title) {
+	var addTodo = exports.addTodo = function addTodo(listId, title) {
 	  return {
 	    type: 'ADD_TODO',
-	    title: title
+	    title: title,
+	    listId: listId
 	  };
 	};
 
-	var removeTodo = exports.removeTodo = function removeTodo(id) {
+	var removeTodo = exports.removeTodo = function removeTodo(listId, id) {
 	  return {
 	    type: 'REMOVE_TODO',
-	    id: id
+	    id: id,
+	    listId: listId
 	  };
 	};
 
-	var toggleTodo = exports.toggleTodo = function toggleTodo(id) {
+	var toggleTodo = exports.toggleTodo = function toggleTodo(listId, id) {
 	  return {
 	    type: 'TOGGLE_TODO',
-	    id: id
+	    id: id,
+	    listId: listId
 	  };
 	};
 
@@ -23291,6 +23320,8 @@
 	      completed = _ref.completed,
 	      id = _ref.id,
 	      todos = _ref.todos;
+
+	  console.info('TODO CALL: ', title, completed, id, todos);
 	  return _react2.default.createElement(
 	    'div',
 	    null,
