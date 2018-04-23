@@ -10,7 +10,7 @@ const store = createStore(reducer);
 window.store = store;
 const App = ({ state }) => (
   <div>
-    <MyHeader />
+    <MyHeader dispatch={store.dispatch} />
     <TodosList todoslist={state.todoslist}/>
   </div>
 );

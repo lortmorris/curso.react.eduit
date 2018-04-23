@@ -77,7 +77,7 @@
 	  return _react2.default.createElement(
 	    'div',
 	    null,
-	    _react2.default.createElement(_MyHeader2.default, null),
+	    _react2.default.createElement(_MyHeader2.default, { dispatch: store.dispatch }),
 	    _react2.default.createElement(_TodosList2.default, { todoslist: state.todoslist })
 	  );
 	};
@@ -23170,12 +23170,13 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var MyHeader = function MyHeader() {
+	var MyHeader = function MyHeader(_ref) {
+	  var dispatch = _ref.dispatch;
 	  return _react2.default.createElement(
 	    'div',
 	    null,
 	    _react2.default.createElement(_Title2.default, { title: 'TodosApp v1.0', color: '#ff22aa' }),
-	    _react2.default.createElement(_AddNewList2.default, null)
+	    _react2.default.createElement(_AddNewList2.default, { dispatch: dispatch })
 	  );
 	};
 
@@ -23246,30 +23247,77 @@
 /* 208 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
 
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 	var _react = __webpack_require__(1);
 
 	var _react2 = _interopRequireDefault(_react);
 
+	var _actions = __webpack_require__(205);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var AddNewList = function AddNewList() {
-	  return _react2.default.createElement(
-	    "div",
-	    null,
-	    _react2.default.createElement(
-	      "form",
-	      null,
-	      _react2.default.createElement("input", { type: "text", placeholder: "New Task name..." }),
-	      _react2.default.createElement("input", { type: "submit" })
-	    )
-	  );
-	};
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var AddNewList = function (_React$Component) {
+	  _inherits(AddNewList, _React$Component);
+
+	  function AddNewList(props) {
+	    _classCallCheck(this, AddNewList);
+
+	    var _this = _possibleConstructorReturn(this, (AddNewList.__proto__ || Object.getPrototypeOf(AddNewList)).call(this, props));
+
+	    _this.state = {
+	      title: ''
+	    };
+
+	    _this.handlerChange = _this.handlerChange.bind(_this);
+	    _this.handlerSubmit = _this.handlerSubmit.bind(_this);
+	    return _this;
+	  }
+
+	  _createClass(AddNewList, [{
+	    key: 'handlerSubmit',
+	    value: function handlerSubmit(event) {
+	      event.preventDefault();
+	      this.props.dispatch((0, _actions.addTodosList)(this.state.title));
+	      this.setState({ title: '' });
+	    }
+	  }, {
+	    key: 'handlerChange',
+	    value: function handlerChange(event) {
+	      this.setState({
+	        title: event.target.value
+	      });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(
+	          'form',
+	          { onSubmit: this.handlerSubmit },
+	          _react2.default.createElement('input', { type: 'text', placeholder: 'New Task name...', value: this.state.title, onChange: this.handlerChange }),
+	          _react2.default.createElement('input', { type: 'submit' })
+	        )
+	      );
+	    }
+	  }]);
+
+	  return AddNewList;
+	}(_react2.default.Component);
 
 	exports.default = AddNewList;
 
