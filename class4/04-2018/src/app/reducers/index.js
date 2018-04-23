@@ -33,6 +33,17 @@ const todoList = (state = {}, action) => {
         title: action.title,
         todos: [],
       };
+    case 'REMOVE_TODO_LIST':
+      return state.id !== action.listId;
+
+    case 'REMOVE_TODO':
+      return Object.assign({}, state, { todos: state.todos.filter(t => todo(t, action)) });
+
+    case 'TOGGLE_TODO':
+      if (state.id === action.listId) {
+        return Object.assign({}, state, { todos: state.todos.map(t => todo(t, action)) });
+      }
+      return state;
     case 'ADD_TODO':
       if (state.id === action.listId) {
         return Object.assign({}, state, { todos: [...state.todos, todo(undefined, action)] });
@@ -47,14 +58,18 @@ const reducer = (state = initialState, action) => {
     case 'ADD_TODO_LIST':
       return Object.assign({}, state, { todoslist: [...state.todoslist, todoList(undefined, action)] });
 
+    case 'REMOVE_TODO_LIST':
+      return Object.assign({}, state, { todoslist: state.todoslist.filter(tl => todoList(tl, action)) });
+
     case 'ADD_TODO':
       return Object.assign({}, state, { todoslist: state.todoslist.map(tl => todoList(tl, action)) });
     break;
+
     case 'REMOVE_TODO':
-      return state.filter(t => todo(t, action));
+      return Object.assign({}, state, { todoslist: state.todoslist.map(tl => todoList(tl, action)) });
 
     case 'TOGGLE_TODO':
-      return state.map((t) => todo(t, action));
+      return Object.assign({}, state, { todoslist: state.todoslist.map(tl => todoList(tl, action)) });
     default:
     return state;
   }

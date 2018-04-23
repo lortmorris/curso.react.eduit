@@ -23047,6 +23047,21 @@
 	        title: action.title,
 	        todos: []
 	      };
+	    case 'REMOVE_TODO_LIST':
+	      return state.id !== action.listId;
+
+	    case 'REMOVE_TODO':
+	      return Object.assign({}, state, { todos: state.todos.filter(function (t) {
+	          return todo(t, action);
+	        }) });
+
+	    case 'TOGGLE_TODO':
+	      if (state.id === action.listId) {
+	        return Object.assign({}, state, { todos: state.todos.map(function (t) {
+	            return todo(t, action);
+	          }) });
+	      }
+	      return state;
 	    case 'ADD_TODO':
 	      if (state.id === action.listId) {
 	        return Object.assign({}, state, { todos: [].concat(_toConsumableArray(state.todos), [todo(undefined, action)]) });
@@ -23064,20 +23079,26 @@
 	    case 'ADD_TODO_LIST':
 	      return Object.assign({}, state, { todoslist: [].concat(_toConsumableArray(state.todoslist), [todoList(undefined, action)]) });
 
+	    case 'REMOVE_TODO_LIST':
+	      return Object.assign({}, state, { todoslist: state.todoslist.filter(function (tl) {
+	          return todoList(tl, action);
+	        }) });
+
 	    case 'ADD_TODO':
 	      return Object.assign({}, state, { todoslist: state.todoslist.map(function (tl) {
 	          return todoList(tl, action);
 	        }) });
 	      break;
+
 	    case 'REMOVE_TODO':
-	      return state.filter(function (t) {
-	        return todo(t, action);
-	      });
+	      return Object.assign({}, state, { todoslist: state.todoslist.map(function (tl) {
+	          return todoList(tl, action);
+	        }) });
 
 	    case 'TOGGLE_TODO':
-	      return state.map(function (t) {
-	        return todo(t, action);
-	      });
+	      return Object.assign({}, state, { todoslist: state.todoslist.map(function (tl) {
+	          return todoList(tl, action);
+	        }) });
 	    default:
 	      return state;
 	  }
