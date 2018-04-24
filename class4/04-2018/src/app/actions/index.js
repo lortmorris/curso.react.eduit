@@ -17,6 +17,11 @@ export const toggleTodo = (listId, id) => ({
   listId,
 });
 
+export const removeTodoList = listId => ({
+  type: 'REMOVE_TODO_LIST',
+  listId,
+});
+
 export const addTodosList = title => ({
   type: 'ADD_TODO_LIST',
   title,

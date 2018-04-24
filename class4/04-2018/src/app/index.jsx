@@ -11,7 +11,7 @@ window.store = store;
 const App = ({ state }) => (
   <div>
     <MyHeader dispatch={store.dispatch} />
-    <TodosList todoslist={state.todoslist}/>
+    <TodosList todoslist={state.todoslist} dispatch={store.dispatch} />
   </div>
 );
 

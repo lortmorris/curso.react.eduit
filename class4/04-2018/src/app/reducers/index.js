@@ -53,7 +53,6 @@ const todoList = (state = {}, action) => {
 }
 
 const reducer = (state = initialState, action) => {
-  console.info('reducer called: ', state, action);
   switch(action.type) {
     case 'ADD_TODO_LIST':
       return Object.assign({}, state, { todoslist: [...state.todoslist, todoList(undefined, action)] });
