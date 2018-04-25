@@ -46,6 +46,8 @@
 
 	'use strict';
 
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 	var _react = __webpack_require__(1);
 
 	var _react2 = _interopRequireDefault(_react);
@@ -70,8 +72,132 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
 	var store = (0, _redux.createStore)(_reducers2.default);
 	window.store = store;
+
+	var Item = function (_React$Component) {
+	  _inherits(Item, _React$Component);
+
+	  function Item(props) {
+	    _classCallCheck(this, Item);
+
+	    var _this = _possibleConstructorReturn(this, (Item.__proto__ || Object.getPrototypeOf(Item)).call(this, props));
+
+	    _this.state = {
+	      completed: props.completed,
+	      id: props.id,
+	      value: props.value,
+	      visible: true
+	    };
+
+	    _this.toggleTodo = _this.toggleTodo.bind(_this);
+	    _this.removeTodo = _this.removeTodo.bind(_this);
+	    return _this;
+	  }
+
+	  _createClass(Item, [{
+	    key: 'toggleTodo',
+	    value: function toggleTodo() {
+	      this.setState({
+	        completed: !this.state.completed
+	      });
+	    }
+	  }, {
+	    key: 'removeTodo',
+	    value: function removeTodo(id) {
+	      this.setState({
+	        visible: false
+	      });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var _state = this.state,
+	          value = _state.value,
+	          completed = _state.completed,
+	          id = _state.id;
+
+	      if (!this.state.visible) return _react2.default.createElement('span', null);
+	      return _react2.default.createElement(
+	        'li',
+	        null,
+	        _react2.default.createElement(
+	          'span',
+	          {
+	            style: { color: '' + (completed ? 'blue' : 'red'), cursor: 'pointer' },
+	            onClick: this.toggleTodo
+	          },
+	          value
+	        ),
+	        _react2.default.createElement(
+	          'span',
+	          { onClick: this.removeTodo },
+	          '[X]'
+	        )
+	      );
+	    }
+	  }]);
+
+	  return Item;
+	}(_react2.default.Component);
+
+	var AppTest = function (_React$Component2) {
+	  _inherits(AppTest, _React$Component2);
+
+	  function AppTest(props) {
+	    _classCallCheck(this, AppTest);
+
+	    var _this2 = _possibleConstructorReturn(this, (AppTest.__proto__ || Object.getPrototypeOf(AppTest)).call(this, props));
+
+	    var todos = [];
+	    for (var x = 1; x <= 100000; x++) {
+	      todos.push({
+	        id: x,
+	        value: 'task ' + x,
+	        completed: x % 2 === 0
+	      });
+	    }
+	    _this2.state = {
+	      todos: todos
+	    };
+	    return _this2;
+	  }
+
+	  _createClass(AppTest, [{
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(
+	          'h1',
+	          null,
+	          'Todos App'
+	        ),
+	        _react2.default.createElement(
+	          'ul',
+	          null,
+	          this.state.todos.map(function (t) {
+	            return _react2.default.createElement(Item, {
+	              key: t.id,
+	              value: t.value,
+	              completed: t.completed
+	            });
+	          })
+	        )
+	      );
+	    }
+	  }]);
+
+	  return AppTest;
+	}(_react2.default.Component);
+
 	var App = function App(_ref) {
 	  var state = _ref.state;
 	  return _react2.default.createElement(
@@ -86,20 +212,14 @@
 	  return (0, _reactDom.render)(_react2.default.createElement(App, { state: store.getState() }), document.getElementById('app'));
 	};
 
-	store.subscribe(appRender);
+	// store.subscribe(appRender);
 
 	store.dispatch((0, _actions.addTodosList)('lista de tareas 1'));
-	console.info('STATE: ', store.getState());
-	store.dispatch((0, _actions.addTodo)(0, 'task 1'));
-	store.dispatch((0, _actions.addTodo)(0, 'task 2'));
-	store.dispatch((0, _actions.addTodo)(0, 'task 3'));
-	store.dispatch((0, _actions.toggleTodo)(0, 1)); // completed
 
-	store.dispatch((0, _actions.addTodosList)('Lista de tareas 2'));
-	store.dispatch((0, _actions.addTodo)(1, 'Para hace 1'));
-	store.dispatch((0, _actions.addTodo)(1, 'Para hace 2'));
-	store.dispatch((0, _actions.addTodo)(1, 'Para hace 3'));
-	store.dispatch((0, _actions.toggleTodo)(1, 2)); // completed
+	// for (let x = 1; x <= 1000; x++ ) {
+	//   store.dispatch(addTodo(0, `task ${x}`));
+	//   if (x % 2 === 0) store.dispatch(toggleTodo(0, x));
+	// }
 
 	appRender();
 
@@ -23178,6 +23298,8 @@
 
 	var MyHeader = function MyHeader(_ref) {
 	  var dispatch = _ref.dispatch;
+
+	  // console.info('render MyHeader');
 	  return _react2.default.createElement(
 	    'div',
 	    null,
