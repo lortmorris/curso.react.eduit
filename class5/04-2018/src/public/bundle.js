@@ -212,7 +212,7 @@
 	  return (0, _reactDom.render)(_react2.default.createElement(App, { state: store.getState() }), document.getElementById('app'));
 	};
 
-	// store.subscribe(appRender);
+	store.subscribe(appRender);
 
 	store.dispatch((0, _actions.addTodosList)('lista de tareas 1'));
 

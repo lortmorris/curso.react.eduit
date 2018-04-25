@@ -101,7 +101,7 @@ const App = ({ state }) => (
 
 const appRender = () => render(<App state={store.getState()} />, document.getElementById('app'));
 
-// store.subscribe(appRender);
+store.subscribe(appRender);
 
 store.dispatch(addTodosList('lista de tareas 1'));
 
