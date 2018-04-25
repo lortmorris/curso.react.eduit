@@ -23483,6 +23483,11 @@
 	    return dispatch((0, _actions.removeTodo)(listId, id));
 	  };
 	};
+	var toggleTask = function toggleTask(listId, id, dispatch) {
+	  return function () {
+	    return dispatch((0, _actions.toggleTodo)(listId, id));
+	  };
+	};
 
 	var Item = function Item(_ref) {
 	  var listId = _ref.listId,
@@ -23493,7 +23498,11 @@
 	  return _react2.default.createElement(
 	    'li',
 	    { style: { color: '' + (completed ? 'blue' : 'red') } },
-	    title,
+	    _react2.default.createElement(
+	      'span',
+	      { onClick: toggleTask(listId, id, dispatch) },
+	      title
+	    ),
 	    _react2.default.createElement(
 	      'button',
 	      { onClick: removeTask(listId, id, dispatch) },

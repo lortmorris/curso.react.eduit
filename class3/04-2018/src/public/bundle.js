@@ -54,24 +54,24 @@
 
 	var _redux = __webpack_require__(184);
 
-	var _reducers = __webpack_require__(211);
+	var _reducers = __webpack_require__(204);
 
 	var _reducers2 = _interopRequireDefault(_reducers);
 
-	var _actions = __webpack_require__(212);
+	var _actions = __webpack_require__(205);
 
-	var _MyHeader = __webpack_require__(204);
+	var _MyHeader = __webpack_require__(206);
 
 	var _MyHeader2 = _interopRequireDefault(_MyHeader);
 
-	var _TodosList = __webpack_require__(207);
+	var _TodosList = __webpack_require__(209);
 
 	var _TodosList2 = _interopRequireDefault(_TodosList);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var store = (0, _redux.createStore)(_reducers2.default);
-
+	window.store = store;
 	var App = function App(_ref) {
 	  var state = _ref.state;
 	  return _react2.default.createElement(
@@ -22995,295 +22995,6 @@
 
 /***/ }),
 /* 204 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _Title = __webpack_require__(205);
-
-	var _Title2 = _interopRequireDefault(_Title);
-
-	var _AddNewList = __webpack_require__(206);
-
-	var _AddNewList2 = _interopRequireDefault(_AddNewList);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	var MyHeader = function MyHeader() {
-	  return _react2.default.createElement(
-	    'div',
-	    null,
-	    _react2.default.createElement(_Title2.default, { title: 'TodosApp v1.0', color: '#ff22aa' }),
-	    _react2.default.createElement(_AddNewList2.default, null)
-	  );
-	};
-
-	exports.default = MyHeader;
-
-/***/ }),
-/* 205 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var Title = function (_React$Component) {
-	  _inherits(Title, _React$Component);
-
-	  function Title(props) {
-	    _classCallCheck(this, Title);
-
-	    console.info('im constructor: ', props);
-	    return _possibleConstructorReturn(this, (Title.__proto__ || Object.getPrototypeOf(Title)).call(this, props));
-	  }
-
-	  _createClass(Title, [{
-	    key: 'componentWillMount',
-	    value: function componentWillMount() {
-	      console.info('vamos a montar el component');
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      console.info('render: ');
-	      return _react2.default.createElement(
-	        'h1',
-	        { style: { color: this.props.color } },
-	        this.props.title
-	      );
-	    }
-	  }, {
-	    key: 'componentDidMount',
-	    value: function componentDidMount() {
-	      console.info('ya se montó');
-	    }
-	  }]);
-
-	  return Title;
-	}(_react2.default.Component);
-
-	exports.default = Title;
-
-/***/ }),
-/* 206 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	var AddNewList = function AddNewList() {
-	  return _react2.default.createElement(
-	    "div",
-	    null,
-	    _react2.default.createElement(
-	      "form",
-	      null,
-	      _react2.default.createElement("input", { type: "text", placeholder: "New Task name..." }),
-	      _react2.default.createElement("input", { type: "submit" })
-	    )
-	  );
-	};
-
-	exports.default = AddNewList;
-
-/***/ }),
-/* 207 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _Todos = __webpack_require__(208);
-
-	var _Todos2 = _interopRequireDefault(_Todos);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	var TodosList = function TodosList(_ref) {
-	  var todoslist = _ref.todoslist;
-
-	  console.info('todoslist ', todoslist);
-	  return _react2.default.createElement(
-	    'div',
-	    null,
-	    todoslist.map(function (tl) {
-	      return _react2.default.createElement(_Todos2.default, {
-	        id: tl.id,
-	        title: tl.title,
-	        todos: tl.todos,
-	        key: tl.id });
-	    })
-	  );
-	};
-
-	exports.default = TodosList;
-
-/***/ }),
-/* 208 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _Item = __webpack_require__(209);
-
-	var _Item2 = _interopRequireDefault(_Item);
-
-	var _AddNewTask = __webpack_require__(210);
-
-	var _AddNewTask2 = _interopRequireDefault(_AddNewTask);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	var Todos = function Todos(_ref) {
-	  var title = _ref.title,
-	      completed = _ref.completed,
-	      id = _ref.id,
-	      todos = _ref.todos;
-	  return _react2.default.createElement(
-	    'div',
-	    null,
-	    _react2.default.createElement(
-	      'h2',
-	      null,
-	      title
-	    ),
-	    _react2.default.createElement(
-	      'button',
-	      null,
-	      '[X]'
-	    ),
-	    _react2.default.createElement(_AddNewTask2.default, null),
-	    _react2.default.createElement(
-	      'ul',
-	      null,
-	      todos.map(function (t) {
-	        return _react2.default.createElement(_Item2.default, {
-	          title: t.title,
-	          id: t.id,
-	          completed: t.completed,
-	          key: t.id
-	        });
-	      })
-	    )
-	  );
-	};
-	exports.default = Todos;
-
-/***/ }),
-/* 209 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	var Item = function Item(_ref) {
-	  var title = _ref.title,
-	      id = _ref.id,
-	      completed = _ref.completed;
-	  return _react2.default.createElement(
-	    'li',
-	    { style: { color: '' + (completed ? 'blue' : 'red') } },
-	    title,
-	    _react2.default.createElement(
-	      'button',
-	      null,
-	      'X'
-	    )
-	  );
-	};
-
-	exports.default = Item;
-
-/***/ }),
-/* 210 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	var AddNewTask = function AddNewTask() {
-	  return _react2.default.createElement(
-	    "div",
-	    null,
-	    _react2.default.createElement(
-	      "form",
-	      null,
-	      _react2.default.createElement("input", { type: "text", placeholder: "New Task Title..." })
-	    )
-	  );
-	};
-
-	exports.default = AddNewTask;
-
-/***/ }),
-/* 211 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -23349,7 +23060,7 @@
 	exports.default = reducer;
 
 /***/ }),
-/* 212 */
+/* 205 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -23384,6 +23095,295 @@
 	    title: title
 	  };
 	};
+
+/***/ }),
+/* 206 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _Title = __webpack_require__(207);
+
+	var _Title2 = _interopRequireDefault(_Title);
+
+	var _AddNewList = __webpack_require__(208);
+
+	var _AddNewList2 = _interopRequireDefault(_AddNewList);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var MyHeader = function MyHeader() {
+	  return _react2.default.createElement(
+	    'div',
+	    null,
+	    _react2.default.createElement(_Title2.default, { title: 'TodosApp v1.0', color: '#ff22aa' }),
+	    _react2.default.createElement(_AddNewList2.default, null)
+	  );
+	};
+
+	exports.default = MyHeader;
+
+/***/ }),
+/* 207 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Title = function (_React$Component) {
+	  _inherits(Title, _React$Component);
+
+	  function Title(props) {
+	    _classCallCheck(this, Title);
+
+	    console.info('im constructor: ', props);
+	    return _possibleConstructorReturn(this, (Title.__proto__ || Object.getPrototypeOf(Title)).call(this, props));
+	  }
+
+	  _createClass(Title, [{
+	    key: 'componentWillMount',
+	    value: function componentWillMount() {
+	      console.info('vamos a montar el component');
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      console.info('render: ');
+	      return _react2.default.createElement(
+	        'h1',
+	        { style: { color: this.props.color } },
+	        this.props.title
+	      );
+	    }
+	  }, {
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      console.info('ya se montó');
+	    }
+	  }]);
+
+	  return Title;
+	}(_react2.default.Component);
+
+	exports.default = Title;
+
+/***/ }),
+/* 208 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var AddNewList = function AddNewList() {
+	  return _react2.default.createElement(
+	    "div",
+	    null,
+	    _react2.default.createElement(
+	      "form",
+	      null,
+	      _react2.default.createElement("input", { type: "text", placeholder: "New Task name..." }),
+	      _react2.default.createElement("input", { type: "submit" })
+	    )
+	  );
+	};
+
+	exports.default = AddNewList;
+
+/***/ }),
+/* 209 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _Todos = __webpack_require__(210);
+
+	var _Todos2 = _interopRequireDefault(_Todos);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var TodosList = function TodosList(_ref) {
+	  var todoslist = _ref.todoslist;
+
+	  console.info('todoslist ', todoslist);
+	  return _react2.default.createElement(
+	    'div',
+	    null,
+	    todoslist.map(function (tl) {
+	      return _react2.default.createElement(_Todos2.default, {
+	        id: tl.id,
+	        title: tl.title,
+	        todos: tl.todos,
+	        key: tl.id });
+	    })
+	  );
+	};
+
+	exports.default = TodosList;
+
+/***/ }),
+/* 210 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _Item = __webpack_require__(211);
+
+	var _Item2 = _interopRequireDefault(_Item);
+
+	var _AddNewTask = __webpack_require__(212);
+
+	var _AddNewTask2 = _interopRequireDefault(_AddNewTask);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var Todos = function Todos(_ref) {
+	  var title = _ref.title,
+	      completed = _ref.completed,
+	      id = _ref.id,
+	      todos = _ref.todos;
+	  return _react2.default.createElement(
+	    'div',
+	    null,
+	    _react2.default.createElement(
+	      'h2',
+	      null,
+	      title
+	    ),
+	    _react2.default.createElement(
+	      'button',
+	      null,
+	      '[X]'
+	    ),
+	    _react2.default.createElement(_AddNewTask2.default, null),
+	    _react2.default.createElement(
+	      'ul',
+	      null,
+	      todos.map(function (t) {
+	        return _react2.default.createElement(_Item2.default, {
+	          title: t.title,
+	          id: t.id,
+	          completed: t.completed,
+	          key: t.id
+	        });
+	      })
+	    )
+	  );
+	};
+	exports.default = Todos;
+
+/***/ }),
+/* 211 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var Item = function Item(_ref) {
+	  var title = _ref.title,
+	      id = _ref.id,
+	      completed = _ref.completed;
+	  return _react2.default.createElement(
+	    'li',
+	    { style: { color: '' + (completed ? 'blue' : 'red') } },
+	    title,
+	    _react2.default.createElement(
+	      'button',
+	      null,
+	      'X'
+	    )
+	  );
+	};
+
+	exports.default = Item;
+
+/***/ }),
+/* 212 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var AddNewTask = function AddNewTask() {
+	  return _react2.default.createElement(
+	    "div",
+	    null,
+	    _react2.default.createElement(
+	      "form",
+	      null,
+	      _react2.default.createElement("input", { type: "text", placeholder: "New Task Title..." })
+	    )
+	  );
+	};
+
+	exports.default = AddNewTask;
 
 /***/ })
 /******/ ]);
