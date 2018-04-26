@@ -26,3 +26,8 @@ export const addTodosList = title => ({
   type: 'ADD_TODO_LIST',
   title,
 });
+
+export const setInitialState = state => ({
+  type: 'SET_INITIAL_STATE',
+  state,
+});

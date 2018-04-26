@@ -1,15 +1,16 @@
+
 const initialState = {
   todoslist: [],
 };
 
-let id = 0;
+const getId = () => `${new Date().getTime()}`;
 
 const todo = (state = {}, action) => {
   switch(action.type) {
     case 'ADD_TODO':
       return {
         title: action.title,
-        id: id++,
+        id: getId(),
         completed: false,
       };
     break;
@@ -29,7 +30,7 @@ const todoList = (state = {}, action) => {
   switch(action.type) {
     case 'ADD_TODO_LIST':
       return {
-        id: id++,
+        id: getId(),
         title: action.title,
         todos: [],
       };
@@ -52,6 +53,7 @@ const todoList = (state = {}, action) => {
   }
 }
 
+
 const reducer = (state = initialState, action) => {
   switch(action.type) {
     case 'ADD_TODO_LIST':
@@ -69,6 +71,8 @@ const reducer = (state = initialState, action) => {
 
     case 'TOGGLE_TODO':
       return Object.assign({}, state, { todoslist: state.todoslist.map(tl => todoList(tl, action)) });
+    case 'SET_INITIAL_STATE':
+      return Object.assign({}, action.state);
     default:
     return state;
   }

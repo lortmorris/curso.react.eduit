@@ -212,15 +212,17 @@
 	  return (0, _reactDom.render)(_react2.default.createElement(App, { state: store.getState() }), document.getElementById('app'));
 	};
 
-	store.subscribe(appRender);
+	store.subscribe(function () {
+	  sessionStorage.setItem('localState', JSON.stringify(store.getState()));
+	  appRender();
+	});
 
-	store.dispatch((0, _actions.addTodosList)('lista de tareas 1'));
-
-	// for (let x = 1; x <= 1000; x++ ) {
-	//   store.dispatch(addTodo(0, `task ${x}`));
-	//   if (x % 2 === 0) store.dispatch(toggleTodo(0, x));
-	// }
-
+	var localState = sessionStorage.getItem('localState');
+	if (localState) {
+	  var localStateObj = JSON.parse(localState);
+	  console.info('localState: ', localStateObj);
+	  if (localStateObj.todoslist) store.dispatch((0, _actions.setInitialState)(localStateObj));
+	}
 	appRender();
 
 /***/ }),
@@ -23130,7 +23132,9 @@
 	  todoslist: []
 	};
 
-	var id = 0;
+	var getId = function getId() {
+	  return '' + new Date().getTime();
+	};
 
 	var todo = function todo() {
 	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
@@ -23140,7 +23144,7 @@
 	    case 'ADD_TODO':
 	      return {
 	        title: action.title,
-	        id: id++,
+	        id: getId(),
 	        completed: false
 	      };
 	      break;
@@ -23163,7 +23167,7 @@
 	  switch (action.type) {
 	    case 'ADD_TODO_LIST':
 	      return {
-	        id: id++,
+	        id: getId(),
 	        title: action.title,
 	        todos: []
 	      };
@@ -23218,6 +23222,8 @@
 	      return Object.assign({}, state, { todoslist: state.todoslist.map(function (tl) {
 	          return todoList(tl, action);
 	        }) });
+	    case 'SET_INITIAL_STATE':
+	      return Object.assign({}, action.state);
 	    default:
 	      return state;
 	  }
@@ -23269,6 +23275,13 @@
 	  return {
 	    type: 'ADD_TODO_LIST',
 	    title: title
+	  };
+	};
+
+	var setInitialState = exports.setInitialState = function setInitialState(state) {
+	  return {
+	    type: 'SET_INITIAL_STATE',
+	    state: state
 	  };
 	};
 

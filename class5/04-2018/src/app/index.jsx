@@ -2,7 +2,7 @@ import React from 'react';
 import { render } from 'react-dom';
 import { createStore } from 'redux';
 import reducer from './reducers';
-import { addTodo, removeTodo, toggleTodo, addTodosList } from './actions';
+import { addTodo, removeTodo, toggleTodo, addTodosList, setInitialState } from './actions';
 import MyHeader from './components/MyHeader.jsx';
 import TodosList from './components/TodosList.jsx';
 
@@ -98,16 +98,18 @@ const App = ({ state }) => (
 );
 
 
-
 const appRender = () => render(<App state={store.getState()} />, document.getElementById('app'));
 
-store.subscribe(appRender);
+store.subscribe(() => {
+  sessionStorage.setItem('localState', JSON.stringify(store.getState()));
+  appRender();
+});
 
-store.dispatch(addTodosList('lista de tareas 1'));
 
-// for (let x = 1; x <= 1000; x++ ) {
-//   store.dispatch(addTodo(0, `task ${x}`));
-//   if (x % 2 === 0) store.dispatch(toggleTodo(0, x));
-// }
-
+const localState = sessionStorage.getItem('localState');
+if (localState) {
+  const localStateObj = JSON.parse(localState);
+  console.info('localState: ', localStateObj);
+  if (localStateObj.todoslist) store.dispatch(setInitialState(localStateObj));
+}
 appRender();
